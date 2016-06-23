@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AViewController.swift
 //  TabbarControllerDoubleClick
 //
 //  Created by 杨胜浩 on 16/6/23.
@@ -9,19 +9,13 @@
 import UIKit
 import MJRefresh
 
-let SCREEN_BOUNDS:CGRect = UIScreen.mainScreen().bounds
-let SCREEN_SIZE:CGSize = UIScreen.mainScreen().bounds.size
-let SCREEN_WIDTH:CGFloat = SCREEN_SIZE.width  //屏幕宽度
-let SCREEN_HEIGHT:CGFloat = SCREEN_SIZE.height
+class AViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
-
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var tableView:UITableView?
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.redColor()
         initTableView()
     }
     
@@ -29,15 +23,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         tableView = UITableView(frame: CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), style: .Plain)
         tableView?.delegate = self
         tableView?.dataSource = self
-        tableView?.backgroundColor = UIColor.redColor()
+        tableView?.backgroundColor = UIColor.blueColor()
         view.addSubview(tableView!)
-        tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ACell")
         tableView!.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
-            print("刷新")
+            print("刷新a")
             self.tableView?.mj_header.endRefreshing()
         })
     }
-
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -45,17 +39,28 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         return 5
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("ACell", forIndexPath: indexPath)
         cell.textLabel?.text = "\(indexPath.row)"
         return cell
     }
     
     
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
 
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
 
 }
-
