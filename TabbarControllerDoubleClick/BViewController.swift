@@ -26,7 +26,7 @@ class BViewController: UIViewController,UITableViewDelegate,UITableViewDataSourc
         tableView?.delegate = self
         tableView?.dataSource = self
         view.addSubview(tableView!)
-        tableView?.backgroundColor = UIColor.blackColor()
+
         tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "BCell")
         tableView!.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
             print("刷新b")

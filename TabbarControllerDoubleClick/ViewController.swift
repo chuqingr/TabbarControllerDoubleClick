@@ -18,11 +18,28 @@ let SCREEN_HEIGHT:CGFloat = SCREEN_SIZE.height
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var tableView:UITableView?
     
-    
+    var animationView = AnimationView(frame: CGRectZero)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initTableView()
+//        initTableView()
+        view.backgroundColor = UIColor.whiteColor()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        addAnimationView()
+    }
+    
+    /**
+     add animationView and red circle layer
+     */
+    func addAnimationView() {
+        let size: CGFloat = 100.0
+        animationView.frame = CGRectMake(CGRectGetWidth(self.view.frame)/2 - size/2, CGRectGetHeight(self.view.frame)/2 - size/2, size, size)
+//        animationView.parentFrame = view.frame
+//        animationView.delegate = self
+        view.addSubview(animationView)
     }
     
     func initTableView() {
@@ -37,6 +54,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.tableView?.mj_header.endRefreshing()
         })
     }
+    
+    
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

@@ -13,23 +13,36 @@ class AViewController: UIViewController,UITableViewDelegate,UITableViewDataSourc
 
     var tableView:UITableView?
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.redColor()
+//        view.backgroundColor = UIColor.redColor()
         initTableView()
     }
     
     func initTableView() {
-        tableView = UITableView(frame: CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), style: .Plain)
+        tableView = UITableView(frame: CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT))
         tableView?.delegate = self
         tableView?.dataSource = self
-        tableView?.backgroundColor = UIColor.blueColor()
         view.addSubview(tableView!)
         tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "ACell")
-        tableView!.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+//        tableView!.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+//            print("刷新a")
+//            self.tableView?.mj_header.endRefreshing()
+//        })
+        tableView?.mj_header = CHBossHeaderView(refreshingBlock: { 
             print("刷新a")
-            self.tableView?.mj_header.endRefreshing()
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,Int64(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+                self.tableView!.mj_header.endRefreshing()
+                
+            })
         })
+    }
+    
+    func beginRefresh() {
+        tableView!.mj_header.beginRefreshing()
+        
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -40,6 +53,7 @@ class AViewController: UIViewController,UITableViewDelegate,UITableViewDataSourc
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ACell", forIndexPath: indexPath)
+        cell.backgroundColor = UIColor.grayColor()
         cell.textLabel?.text = "\(indexPath.row)"
         return cell
     }

@@ -79,7 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UITabBarControllerDelegate
                 case 0:
                     (vc as! ViewController).tableView?.mj_header.beginRefreshing()
                 case 1:
-                    (vc as! AViewController).tableView?.mj_header.beginRefreshing()
+                    if !((vc as! AViewController).tableView?.mj_header as!CHBossHeaderView).refreshing {
+                        (vc as! AViewController).beginRefresh()
+                    }
                 default:
                     (vc as! BViewController).tableView?.mj_header.beginRefreshing()
                 }
